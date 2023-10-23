@@ -1,6 +1,9 @@
 import React from "react";
 import { notFound, redirect } from "next/navigation";
 import { getCart } from "@/lib/cart";
+import { MyAccountButton } from "./MyAccountButton";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
 async function searchProducst(formData: FormData) {
   "use server";
@@ -13,6 +16,7 @@ async function searchProducst(formData: FormData) {
 }
 
 export default async function Navbar() {
+  const session = getServerSession(options);
   const cart = await getCart();
 
   return (
@@ -27,11 +31,10 @@ export default async function Navbar() {
           />
         </form>
         <div className="items-center flex justify-end flex-row gap-7 font-bold">
-          <a className="mr-2.5 cursor-pointer">My Account</a>
+          <MyAccountButton session={session} />
           <a href={"/cart"} className="no-underline">
             Cart
           </a>
-
           <p className="text-red-500 flex items-center justify-center">
             {cart?.size} items
           </p>
