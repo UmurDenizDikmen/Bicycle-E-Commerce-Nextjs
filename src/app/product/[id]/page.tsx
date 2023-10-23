@@ -6,7 +6,7 @@ import formatPrice from "@/lib/formatPrice";
 import Link from "next/link";
 import { Metadata } from "next";
 import AddToCartButton from "@/components/AddToCartButton";
-import { incrementProductQuantity } from "@/app/product/[id]/actions";
+import { incrementProductQuantity } from "@/app/product/[id]/action";
 
 type ProductPageProps = {
   params: {

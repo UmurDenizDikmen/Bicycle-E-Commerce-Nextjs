@@ -3,19 +3,20 @@ import Image from "next/image";
 import { CartItemWithProduct } from "@/lib/cart";
 import formatPrice from "@/lib/formatPrice";
 import Link from "next/link";
-import { useState, useTransition } from "react";
-import { setProductQuantity } from "@/app/cart/actions";
+import { useTransition } from "react";
+import setProducutQuantity from "@/app/cart/action";
 
 interface CartProductsProps {
   cartItems: CartItemWithProduct;
-  setProductQuantity: (productId: string, quantity: number) => Promise<void>;
+  setProductQuantity: (productsId: string, quantity: number) => Promise<void>;
 }
 
-export const CartProducts = ({ cartItems }: CartProductsProps) => {
+export const CartProducts = ({
+  cartItems: { products, quantity },
+}: CartProductsProps) => {
   const [isPending, startTransition] = useTransition();
-  const [isLoading, setIsLoading] = useState(false);
 
-  const starCount = cartItems.products.stars;
+  const starCount = products.stars;
   const quantityOptions: JSX.Element[] = [];
   for (let i = 0; i < 11; i++) {
     quantityOptions.push(
@@ -29,30 +30,25 @@ export const CartProducts = ({ cartItems }: CartProductsProps) => {
     <div>
       <div className="flex flex-wrap items-center gap-3 lg:ml-20">
         <Image
-          src={cartItems.products.imageUrl}
-          alt={cartItems.products.name}
+          src={products.imageUrl}
+          alt={products.name}
           width={500}
           height={500}
           className="rounded-lg mt-6"
         />
         <div className="flex flex-col gap-2">
-          <Link
-            href={"/product/" + cartItems.products.id}
-            className="font-bold text-4xl"
-          >
-            {cartItems.products.name}
+          <Link href={"/product/" + products.id} className="font-bold text-4xl">
+            {products.name}
           </Link>
-          <div className="font-bold">
-            Price : {formatPrice(cartItems.products.price)}
-          </div>
+          <div className="font-bold">Price : {formatPrice(products.price)}</div>
 
           <select
+            defaultValue={quantity}
             onChange={(e) => {
               const newQuantity = parseInt(e.currentTarget.value);
-              setIsLoading(true);
+
               startTransition(async () => {
-                await setProductQuantity(cartItems.productsId, newQuantity);
-                setIsLoading(false);
+                await setProducutQuantity(products.id, newQuantity);
               });
             }}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -60,7 +56,7 @@ export const CartProducts = ({ cartItems }: CartProductsProps) => {
             <option value={0}>0 (Remove)</option>
             {quantityOptions}
           </select>
-          {isLoading && (
+          {isPending && (
             <div role="status">
               <svg
                 aria-hidden="true"

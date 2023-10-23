@@ -1,7 +1,7 @@
 import { CartProducts } from "@/components/CartProducts";
 import { getCart } from "@/lib/cart";
 import formatPrice from "@/lib/formatPrice";
-import { setProductQuantity } from "./actions";
+import setProductQuantity from "./action";
 import { HomeButton } from "@/components/HomeButton";
 
 export const metadata = {
