@@ -2,6 +2,7 @@ import { CartProducts } from "@/components/CartProducts";
 import { getCart } from "@/lib/cart";
 import formatPrice from "@/lib/formatPrice";
 import { setProductQuantity } from "./actions";
+import { HomeButton } from "@/components/HomeButton";
 
 export const metadata = {
   title: "Your cart",
@@ -24,6 +25,11 @@ export default async function CartPage() {
             />
           );
         })}
+        {!cart?.items.length && (
+          <p className="ml-8 text-4xl font-bold text-yellow-500">
+            You are cart is empty
+          </p>
+        )}
       </div>
       <div className="lg:w-96 md:w-8/12 w-full bg-gray-100 dark:bg-gray-900 h-full mt-6">
         <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
@@ -60,6 +66,7 @@ export default async function CartPage() {
             <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white dark:hover:bg-gray-700">
               Checkout
             </button>
+            <HomeButton />
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default async function Navbar() {
             Cart
           </a>
           <p className="text-red-500 flex items-center justify-center">
-            {cart?.size} items
+            {cart?.size || 0} item(s)
           </p>
         </div>
       </div>

@@ -14,10 +14,10 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
 
   const handleClick = useCallback(() => {
     setOpen((prevOpen) => !prevOpen);
-  }, []);
+  }, [open]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center">
       <div>
         <button
           onClick={handleClick}
@@ -43,28 +43,25 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
             />
           </svg>
         </button>
-      </div>
-      <div className="items-center text-center justify-between flex flex-col mt-14">
-        {" "}
-        {open && (
-          <div className="mt-2">
-            <ul>
-              <li>
-                {user ? (
-                  <>
-                    <button onClick={() => signOut({ callbackUrl: "/" })}>
-                      Sign Out
-                    </button>
-                    <p>{user.name}</p>
-                  </>
-                ) : (
-                  <button onClick={() => signIn()}>Sign Up</button>
-                )}
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
+      </div>{" "}
+      {open && (
+        <div>
+          <ul>
+            <li>
+              {user ? (
+                <>
+                  <button onClick={() => signOut({ callbackUrl: "/" })}>
+                    Sign Out
+                  </button>
+                  <p>{user.name}</p>
+                </>
+              ) : (
+                <button onClick={() => signIn()}>Sign Up</button>
+              )}
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
