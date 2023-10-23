@@ -16,7 +16,7 @@ async function searchProducst(formData: FormData) {
 }
 
 export default async function Navbar() {
-  const session = getServerSession(options);
+  const session = await getServerSession(options);
   const cart = await getCart();
 
   return (

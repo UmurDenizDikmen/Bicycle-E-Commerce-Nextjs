@@ -8,13 +8,13 @@ interface MyAccountButtonProps {
 }
 
 export function MyAccountButton({ session }: MyAccountButtonProps) {
+  const user = session?.user;
+
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClick = useCallback(() => {
     setOpen((prevOpen) => !prevOpen);
   }, []);
-
-  const user = session?.user;
 
   return (
     <div className="flex flex-col">
@@ -47,8 +47,8 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
       <div className="items-center text-center justify-between flex flex-col mt-14">
         {" "}
         {open && (
-          <div id="dropdown">
-            <ul aria-labelledby="dropdownDefaultButton">
+          <div className="mt-2">
+            <ul>
               <li>
                 {user ? (
                   <>
