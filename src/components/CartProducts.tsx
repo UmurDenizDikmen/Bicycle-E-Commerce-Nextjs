@@ -28,7 +28,7 @@ export const CartProducts = ({
 
   return (
     <div>
-      <div className="flex flex-row m-auto items-center gap-3 lg:ml-20">
+      <div className="flex lg:flex-row m-auto items-center gap-3 lg:ml-20 flex-col">
         <Image
           src={products.imageUrl}
           alt={products.name}
