@@ -1,9 +1,15 @@
 import * as React from "react";
 import prisma from "@/lib/prismadb";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 async function addProduct(formData: FormData) {
   "use server";
+  const session = getServerSession(options);
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/addProduct");
+  }
   const name = formData.get("name")?.toString() as string;
   const description = formData.get("description")?.toString() as string;
   const imageUrl = formData.get("imageUrl")?.toString() as string;
@@ -26,7 +32,11 @@ async function addProduct(formData: FormData) {
   redirect("/");
 }
 
-export default function AddProduct() {
+export default async function AddProduct() {
+  const session = await getServerSession(options);
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/addProduct");
+  }
   return (
     <div className="flex flex-col relative shrink-0 box-border min-h-[100px] bg-stone-300 p-5">
       <form

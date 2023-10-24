@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { Adapter } from "next-auth/adapters";
 import prisma from "@/lib/prismadb";
 import { env } from "@/lib/env";
+import { mergeAnonymousCartIntoUserCart } from "@/lib/cart";
 
 export const options: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -13,4 +14,10 @@ export const options: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    session({ session, user }) {
+      session.user.id = user.id;
+      return session;
+    },
+  },
 };

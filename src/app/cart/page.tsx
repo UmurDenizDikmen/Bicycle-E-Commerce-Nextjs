@@ -11,7 +11,7 @@ export const metadata = {
 export default async function CartPage() {
   const cart = await getCart();
   return (
-    <div className="grid lg:grid-cols-2 gap-x-96">
+    <div className="grid lg:grid-cols-2 gap-x-96 relative">
       <div>
         <h1 className="mt-28  text-3xl font-bold mb-6 lg:ml-14 pl-10 ml-8">
           Bag
@@ -32,7 +32,7 @@ export default async function CartPage() {
         )}
       </div>
       <div className="lg:w-96 md:w-8/12 w-full bg-gray-100 dark:bg-gray-900 h-full mt-6">
-        <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
+        <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between">
           <div>
             <p className="lg:text-4xl text-3xl font-black leading-9 text-gray-800 dark:text-white mt-3 mb-4">
               Summary
@@ -54,9 +54,9 @@ export default async function CartPage() {
               </p>
             </div>
           </div>
-          <div>
-            <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
-              <p className="text-2xl leading-normal text-gray-800 dark:text-white font-bold">
+          <div className="flex  flex-col  justify-between lg:absolute lg:bottom-0 w-80">
+            <div className="flex  pb-6 justify-between lg:pt-5 pt-20 items-center">
+              <p className="text-2xl leading-normal text-gray-800 dark:text-white font-bold  lg:ml-12">
                 Total :
                 {formatPrice(
                   (cart?.subtotal || 0) - (cart?.subtotal || 0) * 0.1

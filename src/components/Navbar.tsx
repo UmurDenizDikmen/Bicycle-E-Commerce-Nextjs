@@ -21,7 +21,7 @@ export default async function Navbar() {
 
   return (
     <div>
-      <div className="grid grid-cols-1  shadow  dark:border-stone-600 bg-gray-200 md:grid-cols-2 lg:grid-cols-2 justify-between  lg:fixed top-0 left-0 right-0 items-center w-full justify-items-center bg-white-300  rounded-sm h-20">
+      <div className="grid grid-cols-1  shadow  dark:border-stone-600 bg-gray-200 md:grid-cols-2 lg:grid-cols-2 justify-between  lg:fixed top-0 left-0 right-0 items-center w-full justify-items-center bg-white-300  rounded-sm h-20 z-50">
         <form action={searchProducst}>
           <input
             name="searchQuery"
