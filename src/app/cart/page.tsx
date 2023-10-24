@@ -27,7 +27,7 @@ export default async function CartPage() {
         })}
         {!cart?.items.length && (
           <p className="ml-8 text-4xl font-bold text-yellow-500">
-            You are cart is empty
+            Your cart is empty
           </p>
         )}
       </div>

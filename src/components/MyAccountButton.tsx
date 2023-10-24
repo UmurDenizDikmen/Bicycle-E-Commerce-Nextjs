@@ -17,8 +17,8 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
   }, [open]);
 
   return (
-    <div className="flex flex-col items-center">
-      <div>
+    <div className="flex flex-col items-center relative">
+      <div className="z-10">
         <button
           onClick={handleClick}
           id="dropdownDefaultButton"
@@ -45,15 +45,15 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
         </button>
       </div>{" "}
       {open && (
-        <div>
-          <ul>
-            <li>
+        <div className="absolute w-36 h-36  flex flex-row mt-12 bg-gray-400 bg-opacity-75">
+          <ul className="mt-8">
+            <li className="text-2xl pl-6 font-bold items-stretch">
               {user ? (
                 <>
                   <button onClick={() => signOut({ callbackUrl: "/" })}>
                     Sign Out
                   </button>
-                  <p>{user.name}</p>
+                  <p className="text-sm">{user.name}</p>
                 </>
               ) : (
                 <button onClick={() => signIn()}>Sign Up</button>
