@@ -20,4 +20,9 @@ export const options: NextAuthOptions = {
       return session;
     },
   },
+  events: {
+    async signIn({ user }) {
+      await mergeAnonymousCartIntoUserCart(user.id);
+    },
+  },
 };

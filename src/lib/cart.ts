@@ -1,6 +1,6 @@
 import prisma from "./prismadb";
 import { cookies } from "next/dist/client/components/headers";
-import { Cart, Prisma } from "@prisma/client";
+import { Cart, CartItem, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 
@@ -75,19 +75,81 @@ export async function createCart(): Promise<ShoppingCart> {
 }
 export async function mergeAnonymousCartIntoUserCart(userId: string) {
   const localCartId = cookies().get("localCartId")?.value;
-  const localcart = localCartId
+  const localCart = localCartId
     ? await prisma.cart.findUnique({
-        where: { id: localCartId },
+        where: {
+          id: localCartId,
+        },
         include: { items: true },
       })
     : null;
 
-  if (!localcart) {
+  if (!localCart) {
     return;
   }
 
   const userCart = await prisma.cart.findFirst({
-    where: { userId },
+    where: {
+      userId,
+    },
     include: { items: true },
   });
+
+  await prisma.$transaction(async (tx) => {
+    if (userCart) {
+      const mergedCartItems = mergeCartItems(localCart.items, userCart.items);
+      await tx.cartItem.deleteMany({
+        where: { cartId: userCart.id },
+      });
+
+      await tx.cart.update({
+        where: { id: userCart.id },
+        data: {
+          items: {
+            createMany: {
+              data: mergedCartItems.map((item) => ({
+                cartId: userCart.id,
+                productsId: item.productsId,
+                quantity: item.quantity,
+              })),
+            },
+          },
+        },
+      });
+    } else {
+      await tx.cart.create({
+        data: {
+          userId,
+          items: {
+            createMany: {
+              data: localCart.items.map((items) => ({
+                productsId: items.productsId,
+                quantity: items.quantity,
+              })),
+            },
+          },
+        },
+      });
+    }
+
+    await tx.cart.delete({
+      where: { id: localCart.id },
+    });
+
+    cookies().set("localCartId", "");
+  });
+}
+
+function mergeCartItems(...cartItems: CartItem[][]) {
+  return cartItems.reduce((acc, items) => {
+    items.forEach((items) => {
+      const existingItems = acc.find((i) => i.productsId === items.productsId);
+      if (existingItems) {
+        existingItems.quantity += items.quantity;
+      } else {
+        acc.push(items);
+      }
+    });
+    return acc;
+  }, [] as CartItem[]);
 }
