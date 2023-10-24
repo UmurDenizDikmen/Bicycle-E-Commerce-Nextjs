@@ -47,7 +47,7 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
       {open && (
         <div className="absolute w-36 h-36  flex flex-row mt-12 bg-gray-400 bg-opacity-75">
           <ul className="mt-8">
-            <li className="text-2xl pl-6 font-bold items-stretch">
+            <li className="text-2xl pl-1 font-bold">
               {user ? (
                 <>
                   <button onClick={() => signOut({ callbackUrl: "/" })}>
@@ -56,7 +56,9 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
                   <p className="text-sm">{user.name}</p>
                 </>
               ) : (
-                <button onClick={() => signIn()}>Sign Up</button>
+                <button className="pl-6" onClick={() => signIn()}>
+                  Sign Up
+                </button>
               )}
             </li>
           </ul>
