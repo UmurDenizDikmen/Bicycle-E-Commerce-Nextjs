@@ -2,7 +2,6 @@ import { HeadLine } from "@/components/HeadLine";
 import ProductCart from "@/components/ProductCart";
 import prisma from "@/lib/prismadb";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 interface SearchPageProps {
   searchParams: { query: string };
@@ -36,7 +35,6 @@ export default async function SearchPage({
         <div className="text-center mt-96 mb-96 font-bold text-2xl">
           No products found
         </div>
-        ;
       </>
     );
   }
