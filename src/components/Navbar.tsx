@@ -27,7 +27,7 @@ export default async function Navbar() {
             name="searchQuery"
             type="text"
             placeholder="Search"
-            className="mr-2.5 p-1.5 rounded border-solid border-stone-300 border-b border-l border-r border-t"
+            className="mr-2.5 p-1.5 rounded-lg border-solid border-stone-300 border-b border-l border-r border-t"
           />
         </form>
         <div className="items-center flex justify-end flex-row gap-7 font-bold mt-2 text-center ml-2">
