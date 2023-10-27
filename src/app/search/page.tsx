@@ -33,7 +33,7 @@ export default async function SearchPage({
       <>
         <HeadLine />
         <div className="text-center mt-96 mb-96 font-bold text-2xl">
-          No products foundv
+          No products found
         </div>
       </>
     );
