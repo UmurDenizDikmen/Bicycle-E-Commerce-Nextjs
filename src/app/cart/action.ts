@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { createCart, getCart } from "@/lib/cart";
-import prisma from "@/lib/prismadb";
+import { prisma } from "@/lib/prismadb";
 
 export default async function setProductQuantity(
   productsId: string,

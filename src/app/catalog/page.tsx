@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCart from "@/components/ProductCart";
-import prisma from "@/lib/prismadb";
+import { prisma } from "@/lib/prismadb";
 import { HeadLine } from "@/components/HeadLine";
 import PaginationBar from "@/components/PaginationBar";
 

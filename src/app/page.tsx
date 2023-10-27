@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import prisma from "@/lib/prismadb";
+import { prisma } from "@/lib/prismadb";
 import formatPrices from "@/lib/formatPrice";
 import { MdArrowForwardIos } from "react-icons/md";
 import { ShowCase } from "@/components/ShowCase";

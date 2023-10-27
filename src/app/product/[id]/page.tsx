@@ -1,5 +1,5 @@
 import { cache } from "react";
-import prisma from "@/lib/prismadb";
+import { prisma } from "@/lib/prismadb";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import formatPrice from "@/lib/formatPrice";
@@ -13,6 +13,7 @@ type ProductPageProps = {
     id: string;
   };
 };
+
 const getProduct = cache(async (id: string) => {
   const product = await prisma.products.findUnique({
     where: {
