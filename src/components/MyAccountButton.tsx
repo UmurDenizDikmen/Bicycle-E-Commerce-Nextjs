@@ -21,7 +21,7 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
       <div className="z-10">
         <button
           onClick={handleClick}
-          id="dropdownDefaultButton"
+          id="dropdown"
           data-dropdown-toggle="dropdown"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700"
           type="button"
@@ -45,18 +45,18 @@ export function MyAccountButton({ session }: MyAccountButtonProps) {
         </button>
       </div>{" "}
       {open && (
-        <div className="absolute w-36 h-36  flex flex-row mt-12 bg-gray-400 bg-opacity-75">
-          <ul className="mt-8">
+        <div className="absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 mt-12">
+          <ul className="py-6 text-sm text-gray-700 dark:text-gray-200">
             <li className="text-2xl pl-1 font-bold">
               {user ? (
                 <>
                   <button onClick={() => signOut({ callbackUrl: "/" })}>
                     Sign Out
                   </button>
-                  <p className="text-sm">{user.name}</p>
+                  <p className="text-sm pt-2">{user.name}</p>
                 </>
               ) : (
-                <button className="pl-6" onClick={() => signIn()}>
+                <button className="pl-1 pr-3" onClick={() => signIn()}>
                   Sign Up
                 </button>
               )}
